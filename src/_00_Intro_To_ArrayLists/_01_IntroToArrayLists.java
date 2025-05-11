@@ -23,13 +23,19 @@ public class _01_IntroToArrayLists {
     	}
         // 5. Print only the even numbered elements in the list.
     	for(int i = 0; i< strings.size(); i++) {
-    		if(i % 2 == 0) {
+    		if(i % 2 == 1) {
     			System.out.println(strings.get(i));
     		}
     	}
         // 6. Print all the Strings in reverse order.
-
+    	for(int i = strings.size()-1; i>= 0; i--) {
+    		System.out.println(strings.get(i));
+    	}
         // 7. Print only the Strings that have the letter 'e' in them.
-        
+        for(int i = 0; i<strings.size(); i++) {
+        	if(strings.get(i).contains("e") == true) {
+        		System.out.println(strings.get(i));
+        	}
+        }
     }
 }
