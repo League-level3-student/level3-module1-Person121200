@@ -18,12 +18,11 @@ public class ArrayListRemove {
         public Dirt() {
             type = "dirt";
         }
-    }
 
     // 1. Write a method that removes the dirt in the yard and returns the
     //    ArrayList
     public static ArrayList<Stuff> cleanOutTheYard( ArrayList<Stuff> yard ) {
-        for(int i = 0; i<yard.size(); i++) {
+        for(int i = yard.size; i<=0; i--) {
         	if(yard.get(i).type.equals("dirt")) {
         		yard.remove(i);
         	}
