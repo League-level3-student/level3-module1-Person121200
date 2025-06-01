@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Random;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -22,20 +23,22 @@ public class GameBoard extends JFrame implements ActionListener {
     static int TOTAL_CARDS = 52;
     
     ArrayList<Card> cards;
-    ArrayList<Card> objects = new ArrayList<Card>(TOTAL_CARDS);
-    
+    int random = 0;
     JPanel panel;
     JLabel timeLabel;
     JButton newGameButton;
     
     Timer updateTimer;
     Timer gameClock;
+    Random rand;
     
     int seconds;
     
     public void setup() {
         gameClock = new Timer(1000, this);
         updateTimer = new Timer(750, this);
+    	rand = new Random();
+
         
         // Can't play the game if there isn't an even number of cards
         if( TOTAL_CARDS % 2 != 0) {
@@ -71,15 +74,29 @@ public class GameBoard extends JFrame implements ActionListener {
         // 8. Call the startGame() method to start the game
         startGame();
     }
+    
+    public void pickRandom() {
+    	for(int i = 0; i<3; i++) {
+    		for(int j = 1; j<13; j++) {
+    	    	random = rand.nextInt(52);
+    			if(cards.get(random).getValue() <= 1) {
+        			cards.get(random).setFaceUpIcon(Card.cardImagesPath + (i) + ".png");
+
+        			cards.get(random).setValue(j);
+
+    			}
+    		}
+    	}
+    	
+    }
 
     // 9. Fill in the drawCards method to draw all the cards in the ArrayList.
     //    Run your code and verify 2 cards are displayed and the game works.
     public void drawCards() {
-        for(int i = 0; i<cards.size(); i++) {
-        	cards.get(i).draw();
-        	cards.get(i).setFaceUpIcon(Card.cardImagesPath + (i+1) + ".png");
-        }
+    	pickRandom();
     }
+
+
     
     // 10. 
     // There are 52 cards in a normal sized deck of cards (not counting
@@ -88,7 +105,7 @@ public class GameBoard extends JFrame implements ActionListener {
     // 
     // Go back and modify the code to have a total of 52 cards and 4 copies
     // of each card, meaning x4 2s, x4 3s, x4 Jacks, ... one of each suit.
-    // You can use Jacks=11, Queens=12, Kings=12, Aces=13
+    // You can use Jacks=11, Queens=12, Kings=13, Aces=14
     // 
     // EXTRA: You can use real card faces images instead of numbers by using
     // the images in the CardImages folder and the setFaceUpIcon() method.
@@ -197,15 +214,14 @@ public class GameBoard extends JFrame implements ActionListener {
             // Card selected
             
             Card newCard = (Card)e.getSource();
-            
-            if( firstSelectedCard == null ) {
+            if( firstSelectedCard != null ) {
                 // First of 2 cards selected
                 
                 firstSelectedCard = newCard;
                 firstSelectedCard.setFaceUp(true);
                 drawCards();
                 updateTimer.stop();
-            } else if( secondSelectedCard == null && newCard != firstSelectedCard ) {
+            } else if( secondSelectedCard != null && newCard != firstSelectedCard ) {
                 // Second of 2 cards selected
                 
                 secondSelectedCard = newCard;
