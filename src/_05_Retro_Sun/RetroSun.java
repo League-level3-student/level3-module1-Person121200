@@ -64,7 +64,6 @@ public class RetroSun extends PApplet {
         // to check if the pixel is the color of the yellow circle.
     	for(int i = 0; i<pixels.length; i++) {
     		if(pixels[i] == sunColors[0]) {
-    			
     		}
     	}
     	// If pixel[i] is the same color as the color of our circle (sunColors[0]),
