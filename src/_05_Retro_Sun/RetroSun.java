@@ -1,5 +1,7 @@
 package _05_Retro_Sun;
 
+import java.awt.Color;
+
 import processing.core.PApplet;
 
 /*
@@ -11,6 +13,8 @@ import processing.core.PApplet;
 public class RetroSun extends PApplet {
     static final int WIDTH = 800;
     static final int HEIGHT = 600;
+    // int y = i / width;
+    // float step = map(y, sunTopY, sunBottomY, 0, 1);
 
     // RGB colors
     int[] sunColors = {
@@ -24,7 +28,7 @@ public class RetroSun extends PApplet {
     @Override
     public void settings() {
         // 1. Set the size of your sketch to at least 800 width, 600 height
-        
+        size(WIDTH, HEIGHT);
     }
 
     @Override
@@ -42,7 +46,7 @@ public class RetroSun extends PApplet {
         // Draw an ellipse for the sun in the center of the window
         // Use fill(sunColors[0]) to make it yellow
         // Use noStroke() to remove the black outline
-    	ellipse(50, 50, 10, 10);
+    	ellipse(400, 300, 400, 400);
     	fill(sunColors[0]);
     	noStroke();
         // Do you see a yellow sun like in the 1st image?
@@ -64,11 +68,21 @@ public class RetroSun extends PApplet {
         // to check if the pixel is the color of the yellow circle.
     	for(int i = 0; i<pixels.length; i++) {
     		if(pixels[i] == sunColors[0]) {
+    			int y = i/width;
+    			float step = map(y, , 1, 0, 1);
+    			int tree = interpolateColor(sunColors, step);
+    			pixels[i] = tree;
     		}
+            
+    		
+    	
     	}
+    	updatePixels();
+
     	// If pixel[i] is the same color as the color of our circle (sunColors[0]),
         // we need to map the pixel to a color in our sunColors[] array
         // (see 2nd gradient image in RetroSun.html)
+    	
 
         // The top of the sun is yellow (sunColors[0]) and the bottom
         // of the sun is red (sunColors[sunColors.length - 1]
@@ -161,7 +175,7 @@ public class RetroSun extends PApplet {
          * reflections and stars. See RetroSun.html in this folder for some
          * example classes
          */
-    }
+}
 
     static public void main(String[] passedArgs) {
         PApplet.main(RetroSun.class.getName());
