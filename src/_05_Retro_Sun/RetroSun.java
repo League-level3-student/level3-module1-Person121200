@@ -46,9 +46,9 @@ public class RetroSun extends PApplet {
         // Draw an ellipse for the sun in the center of the window
         // Use fill(sunColors[0]) to make it yellow
         // Use noStroke() to remove the black outline
-    	ellipse(400, 300, 400, 400);
-    	fill(sunColors[0]);
     	noStroke();
+    	fill(sunColors[0]);
+    	ellipse(400, 300, 400, 400);
         // Do you see a yellow sun like in the 1st image?
         // If not, fix your code before proceeding.
 
@@ -63,44 +63,45 @@ public class RetroSun extends PApplet {
         // the pixels[] array
     	loadPixels();
         // https://processing.org/reference/loadPixels_.html
-
+    	print("pixels length", pixels.length);
         // We want to change the color of our sun so use an if statement
         // to check if the pixel is the color of the yellow circle.
     	for(int i = 0; i<pixels.length; i++) {
+    		// If pixel[i] is the same color as the color of our circle (sunColors[0]),
     		if(pixels[i] == sunColors[0]) {
+    			// we need to map the pixel to a color in our sunColors[] array
     			int y = i/width;
-    			float step = map(y, , 1, 0, 1);
+    	
+    			// In order to get the right color, the y value from the top of
+    			// the sun to the bottom has to be mapped to a range from 0 to 1.
+    			// Use the map() function to do that:
+    			// int y = i / width;
+    			// float step = map(y, sunTopY, sunBottomY, 0, 1);
+    			println('y' + y);
+    			float step = map(y, 0, height, 0, 1);
+    			println("step " + step );
+    			// Call interpolateColor(sunColors, step) and save the color
+    			// variable that's returned
     			int tree = interpolateColor(sunColors, step);
+    			// Set pixels[i] to the returned color
     			pixels[i] = tree;
     		}
             
     		
     	
     	}
+    	// Call updatePixels() after your loop through all the pixels to
+    	// update the pixel colors
+    	// https://processing.org/reference/updatePixels_.html
+    	print("updating pixels");
     	updatePixels();
 
-    	// If pixel[i] is the same color as the color of our circle (sunColors[0]),
-        // we need to map the pixel to a color in our sunColors[] array
-        // (see 2nd gradient image in RetroSun.html)
     	
 
-        // The top of the sun is yellow (sunColors[0]) and the bottom
-        // of the sun is red (sunColors[sunColors.length - 1]
 
-        // In order to get the right color, the y value from the top of
-        // the sun to the bottom has to be mapped to a range from 0 to 1.
-        // Use the map() function to do that:
-        // int y = i / width;
-        // float step = map(y, sunTopY, sunBottomY, 0, 1);
 
-        // Call interpolateColor(sunColors, step) and save the color
-        // variable that's returned
 
-        // Set pixels[i] to the returned color
 
-        // Call updatePixels() after your loop through all the pixels to
-        // update the pixel colors
-        // https://processing.org/reference/updatePixels_.html
 
         
         /*
@@ -109,9 +110,10 @@ public class RetroSun extends PApplet {
          * The missing parts of the sun are created by drawing rectangles over the sun
          * with the same color as the background.
          */
-
+    	
         // Set the fill color to the background color
-
+    	fill(bgColor);
+    	
         // To draw each rectangle we need to find its x, y, width, height
         // *The y position can be any value within the sun:
         //  float y = width / 2;
@@ -121,6 +123,23 @@ public class RetroSun extends PApplet {
         //  float x = sunCenterX - sunRadius
         // *The width can be 2 times the radius
         //  float w = 2 * sunRadius
+    	int end = width/2-500;
+    	float y = width/2+70;
+    	float h = 40;
+    	float x = 500 - 400;
+    	float w = 2 * 400;
+    	
+
+
+
+
+
+        	
+
+    	}
+
+
+        	
         
         // Do you see a section missing from the sun like in the 3rd image?
 
@@ -131,7 +150,7 @@ public class RetroSun extends PApplet {
          * To move a section upwards each rectangle's y value needs to decrease. To make
          * the section get smaller, its height needs to also decrease.
          */
-
+        
         // Decrease the y variable of the rectangular section created in PART 3.
         // If there isn't a variable, declare a float variable OUTSIDE of the
         // draw function AND initialize it in the setup() function.
@@ -175,7 +194,7 @@ public class RetroSun extends PApplet {
          * reflections and stars. See RetroSun.html in this folder for some
          * example classes
          */
-}
+
 
     static public void main(String[] passedArgs) {
         PApplet.main(RetroSun.class.getName());
