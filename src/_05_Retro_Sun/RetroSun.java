@@ -47,8 +47,7 @@ public class RetroSun extends PApplet {
 			Star star = new Star(rand.nextInt(WIDTH), rand.nextInt(HEIGHT), 100);
 			star.draw();
 		}
-		reflection = new Reflection(200, 5, 500, 500, 20);
-		reflection.draw();
+		
 		y = width / 2 + 70;
 		h = 40;
 		x = 500 - 400;
@@ -137,7 +136,7 @@ public class RetroSun extends PApplet {
 		for(int i = 0; i<sections.size(); i++) {
 			Rectangle r = sections.get(i);
 			if (r.y < 250) {
-				r.y = width / 2 + 70;
+				r.y = width / 2 + 100;
 			} else {
 					r.y--;
 					r.h = map(r.y, 250, 500, 1, 40);
