@@ -15,25 +15,33 @@ public class _02_LogSearch implements ActionListener {
 	JButton addEntry;
 	JButton search;
 	JButton display;
+	JButton delete;
 	HashMap<Integer, String> log;
 	String id;
 	String name;
 	String ask;
+	String removeWhich;
+	String all;
 
 	public void Setup() {
 		frame = new JFrame("Log Search");
 		panel = new JPanel();
-		addEntry = new JButton();
-		search = new JButton();
-		display = new JButton();
+		addEntry = new JButton("Add Entry");
+		all = "";
+		
+		search = new JButton("Search");
+		display = new JButton("Display");
+		delete = new JButton("Delete");
 		log = new HashMap<Integer, String>();
 		frame.add(panel);
 		addEntry.addActionListener(this);
 		search.addActionListener(this);
 		display.addActionListener(this);
+		delete.addActionListener(this);
 		panel.add(addEntry);
 		panel.add(display);
 		panel.add(search);
+		panel.add(delete);
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(frame.EXIT_ON_CLOSE);
 		frame.pack();
@@ -71,8 +79,9 @@ public class _02_LogSearch implements ActionListener {
 		}
 		if(arg0.getSource() == display) {
 			for(int i : log.keySet()) {
-				JOptionPane.showMessageDialog(null, "Name: " +log.get(i) + " ID: " + i);
+				all +="Name: " +log.get(i) + " ID: " + i + '\n';
 			}
+			JOptionPane.showMessageDialog(null, all);
 		}
 		if (arg0.getSource() == search) {
 			ask = JOptionPane.showInputDialog("Enter an id to search: ");
@@ -85,6 +94,19 @@ public class _02_LogSearch implements ActionListener {
 					JOptionPane.showMessageDialog(null, "name can't be found!");
 				}
 			}
+		if(arg0.getSource() == delete) {
+			removeWhich = JOptionPane.showInputDialog("Which ID do you want to remove: ");
+			int removeasInt = Integer.parseInt(removeWhich);
+			if(log.containsKey(removeasInt) == true) {
+				log.remove(removeasInt);
+				JOptionPane.showMessageDialog(null, removeasInt + " has been removed.");
+				all = "";
+			}
+			else {
+				JOptionPane.showMessageDialog(null, "ID does not exist!");
+			}
+		}
+		
 		}
 	}
 
