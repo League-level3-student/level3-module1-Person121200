@@ -24,23 +24,23 @@ public class MeetingScheduler {
      * Assume both schedules are in the same time zones
      */
     public static Schedule getMutualAvailability(Schedule person1, Schedule person2) {
-    	Schedule schedule;
-    	for( int i = 0; i<person1.getSchedule().size(); i++) {
-    		for(int j = 0; i<person2.getSchedule().size(); i++) {
-    			if(person1.getSchedule().containsKey(i) == person2.getSchedule().containsKey(j)){
-    				ArrayList<Integer> times1 = person1.getSchedule().get(i);
-    				ArrayList<Integer> times2 = person2.getSchedule().get(j);
-    				for(int k  = 0; k<times1.size(); k++) {
-    					for(int c = 0; c< times2.size(); c++) {
-    						if(times1.get(k) == times2.get(c)) {
-    							return getMutualAvailability(person1.getSchedule().get(schedule), person2);
-    						}
-    					}
-    				}
+    	Schedule schedule = new Schedule();
+    	for( String dayOfWeek : person1.getSchedule().keySet()) {
+    		    ArrayList<Integer> person1TimesAvailableOnThisDay = person1.getSchedule().get(dayOfWeek);
+    		    ArrayList<Integer> person2TimesAvailableOnThisDay = person2.getSchedule().get(dayOfWeek);
+    		    for(int i = 0; i<person1TimesAvailableOnThisDay.size(); i++) {
+    		    	for(int j = 0; j<person2TimesAvailableOnThisDay.size(); j++) {
+    		    		if(person1TimesAvailableOnThisDay.get(i) == person2TimesAvailableOnThisDay.get(j)) {
+    		    			schedule.addAvailability(dayOfWeek, person1TimesAvailableOnThisDay.get(i));
+    		    		}
+    		    	}
+    		    }
+    		
 
     				
     			}
-    		}
-    	}
+		return schedule;
+    		
+    	
     }
 }
